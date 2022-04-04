@@ -1,5 +1,5 @@
 # Test-Api
-Node-JS Api based on express and typeorm
+Node-JS Api based on nest-js and typeorm
 
 ## Installation
 
