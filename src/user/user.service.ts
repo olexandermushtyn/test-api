@@ -13,11 +13,11 @@ export class UserService {
   ) {}
 
   findAll(): Promise<User[]> {
-    return this.usersRepository.find()
+    return this.usersRepository.find({ relations: ['group'] })
   }
 
   findOne(id: string): Promise<User> {
-    return this.usersRepository.findOne(id)
+    return this.usersRepository.findOne(id, { relations: ['group'] })
   }
 
   async create(dto: CreateUserDto): Promise<User> {
@@ -27,8 +27,13 @@ export class UserService {
     return user
   }
 
-  async update(id: string, dto: CreateUserDto) {
-    return this.usersRepository.update(id, dto)
+  async update(id: string, dto: CreateUserDto): Promise<any> {
+    const group = await Group.findOne(dto.groupId)
+    const user = {
+      username: dto.username,
+      group
+    }
+    return this.usersRepository.update(id, user)
   }
 
   async remove(id: string): Promise<void> {
