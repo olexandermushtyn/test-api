@@ -1,6 +1,7 @@
 import {
   Body,
   Controller,
+  Delete,
   Get,
   Param,
   Post,
@@ -34,5 +35,10 @@ export class GroupController {
   @Put('/:id')
   updateOne(@Param('id') id: string, @Body() groupDto: CreateGroupDto) {
     return this.groupService.update(id, groupDto)
+  }
+
+  @Delete('/:id')
+  delete(@Param('id') id: string) {
+    return this.groupService.remove(id)
   }
 }
